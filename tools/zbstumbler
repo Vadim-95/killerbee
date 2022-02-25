@@ -119,7 +119,7 @@ def interrupt(signum, frame):
         csvfile.close()
     kb.close()
     print(("\n{0} packets transmitted, {1} responses.".format(txcount, rxcount)))
-    sys.exit(network_data_store,txcount, rxcount)
+    sys.exit(network_data_store,str(txcount), str(rxcount))
 
 if __name__ == '__main__':
      # Command-line arguments
@@ -211,3 +211,4 @@ if __name__ == '__main__':
         seqnum += 1
         if not args.channel:
             channel += 1
+    sys.exit(network_data_store,str(txcount), str(rxcount))
