@@ -1,4 +1,4 @@
-KillerBee
+KillerBee Test
 ================
 
 KillerBee is a Framework and Tools for Testing & Auditing ZigBee and IEEE 802.15.4 Networks
