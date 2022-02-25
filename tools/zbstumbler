@@ -16,9 +16,10 @@ from killerbee import *
 txcount = 0
 rxcount = 0
 stumbled = {}
+network_data_store = []
 
 def display_details(routerdata):
-    global args, csvfile
+    global args, csvfile, network_data_store
     stackprofile_map = {0:"Network Specific",
                         1:"ZigBee Standard",
                         2:"ZigBee Enterprise"}
@@ -26,7 +27,7 @@ def display_details(routerdata):
                     1:"ZigBee 2004",
                     2:"ZigBee 2006/2007"}
     spanid, source, extpanid, stackprofilever, channel = routerdata
-    stackprofile = stackprofilever & 0x0f
+    stackprofile = stackprofilever & 0x0f 
     stackver = (stackprofilever & 0xf0) >>4
 
     print("New Network: PANID 0x{0:02X}{1:02X} Source 0x{2:02X}{3:02X}".format(spanid[0], spanid[1], source[0], source[1]))
@@ -55,10 +56,17 @@ def display_details(routerdata):
         stackverstr = "Unknown (%d)"%stackver
 
     print(("\tChannel: {0}".format(channel)))
-
+    
     if args.csvfile is not None:
         csvfile.write("0x%02X%02X,0x%02X%02X,%s,%s,%s,%d\n"%(spanid[0], spanid[1], source[0], source[1], extpanidstr, stackprofilestr, stackverstr, channel))
-
+    
+    network_data_store.append({
+    "panid" : "0x%02X%02X"%(spanid[0], spanid[1]),
+    "source" : "0x%02X%02X"%(source[0], source[1]),
+    "extpanid" : extpanidstr,
+    "stackprofile" : stackprofilestr,
+    "stackversion" : stackverstr,
+    "channel" : channel})
 
 def response_handler(stumbled, packet, channel):
     global args
@@ -111,10 +119,10 @@ def interrupt(signum, frame):
         csvfile.close()
     kb.close()
     print(("\n{0} packets transmitted, {1} responses.".format(txcount, rxcount)))
-    sys.exit(0)
+    sys.exit(network_data_store,txcount, rxcount)
 
 if __name__ == '__main__':
-    # Command-line arguments
+     # Command-line arguments
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('-i', '--iface', '--dev', action='store', dest='devstring')
     parser.add_argument('-g', '--gps', '--ignore', action='append', dest='ignore')
@@ -201,4 +209,3 @@ if __name__ == '__main__':
         seqnum += 1
         if not args.channel:
             channel += 1
-

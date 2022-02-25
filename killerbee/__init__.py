@@ -36,6 +36,8 @@ def show_dev(vendor: str=None, product: str=None, gps: str=None, include: str=No
     for dev in devlist(vendor=vendor, product=product, gps=gps, include=include): 
         # Using None as a format value is an TypeError in python3
         print((fmt.format(dev[0], dev[1], str(dev[2]))))
+        #DHBW: Add return dev
+        return dev
 
 # KillerBee Class
 class KillerBee:
