@@ -131,6 +131,7 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--channel', action='store', type=int, default=None)
     parser.add_argument('-w', '--file', action='store', dest='csvfile', default=None)
     parser.add_argument('-D', action='store_true', dest='showdev')
+    parser.add_argument('-d', '--duration', action='store_true',type=int, default=10)
     args = parser.parse_args()
 
     if args.showdev:
@@ -166,9 +167,10 @@ if __name__ == '__main__':
         kb.set_channel(channel)
     else:
         channel = 11
-
+        
+    time_end = time.time() + args.duration
     # Loop injecting and receiving packets
-    while 1:
+    while time.time() < time_end:
         if channel > 26:
             channel = 11
 
