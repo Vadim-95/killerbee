@@ -218,7 +218,8 @@ if __name__ == '__main__':
         if not args.channel:
             channel += 1
 
+    print(network_data_store)
     with open('/tmp/network_data.json', 'w') as f:
-        json.dumps(network_data_store, f)
+        json.dump(json.dumps(network_data_store), f)
         
     sys.exit(0)
