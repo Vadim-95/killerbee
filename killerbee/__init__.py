@@ -33,11 +33,12 @@ def show_dev(vendor: str=None, product: str=None, gps: str=None, include: str=No
     '''
     fmt: str = "{: >14} {: <30} {: >10}"
     print((fmt.format("Dev", "Product String", "Serial Number")))
-    for dev in devlist(vendor=vendor, product=product, gps=gps, include=include): 
+    device_list = devlist(vendor=vendor, product=product, gps=gps, include=include)
+    for dev in device_list: 
         # Using None as a format value is an TypeError in python3
         print((fmt.format(dev[0], dev[1], str(dev[2]))))
-        #DHBW: Add return dev
-        return dev
+    #DHBW: Add return devlist
+    return device_list
 
 # KillerBee Class
 class KillerBee:
