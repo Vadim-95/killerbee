@@ -220,6 +220,6 @@ if __name__ == '__main__':
 
     print(network_data_store)
     with open('/tmp/network_data.json', 'w') as f:
-        json.dump(json.dumps(network_data_store), f)
+        json.dump(network_data_store, f, indent = 4)
         
     sys.exit(0)
