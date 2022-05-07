@@ -6,6 +6,7 @@ import os
 import random
 import signal
 import sys
+import json
 
 from killerbee import *
 
@@ -107,16 +108,19 @@ def keysearch(packet, searchdata):
 
             if d.decrypt(packet, searchdata[offset : offset + 16]) != "":
                 print("Key found after %d guesses: " % guesses, end=" ")
-
+                found_key = ""
                 for i in range(0, 15):
+                    found_key += "%02x:" % searchdata[offset + i]
                     sys.stdout.write("%02x:" % searchdata[offset + i])
 
                 print("%02x" % searchdata[offset + 15])
-                
-                # return True
-                # modified as we need to return the key to display it on the web page.
-                return "%02x" % searchdata[offset + 15], guesses
-
+                found_key += "%02x" % searchdata[offset + 15]
+                with open("/tmp/zbgoodfind_result.json", "w") as results:
+                    json.dump({
+                        "key" : found_key,
+                        "guesses" : guesses
+                    }, results)
+                return True
 
         except (UnsupportedPacket, BadKeyLength, BadPayloadLength):
             pass

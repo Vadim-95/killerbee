@@ -9,6 +9,7 @@ import sys
 import os
 import argparse
 import subprocess
+import struct
 
 from killerbee import *
 
@@ -91,7 +92,7 @@ def main():
                     if packet != None:
                         packetcount+=1
                         pd.pcap_dump(packet['bytes'], ant_dbm=packet['dbm'], freq_mhz=rf_freq_mhz)
-
+                        
             except KeyboardInterrupt:
                 pass
             except IOError as e:
