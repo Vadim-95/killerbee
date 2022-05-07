@@ -112,8 +112,11 @@ def keysearch(packet, searchdata):
                     sys.stdout.write("%02x:" % searchdata[offset + i])
 
                 print("%02x" % searchdata[offset + 15])
+                
+                # return True
+                # modified as we need to return the key to display it on the web page.
+                return "%02x" % searchdata[offset + 15], guesses
 
-                return True
 
         except (UnsupportedPacket, BadKeyLength, BadPayloadLength):
             pass
