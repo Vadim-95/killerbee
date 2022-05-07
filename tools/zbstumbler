@@ -132,7 +132,7 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--channel', action='store', type=int, default=None)
     parser.add_argument('-w', '--file', action='store', dest='csvfile', default=None)
     parser.add_argument('-D', action='store_true', dest='showdev')
-    parser.add_argument('-d', '--duration', action='store',type=int, default=10)
+    parser.add_argument('-d', '--duration', action='store',type=int, default=3)
     args = parser.parse_args()
 
     if args.showdev:
