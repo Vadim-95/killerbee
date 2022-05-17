@@ -9,6 +9,7 @@ import sys
 import time
 import signal
 import argparse
+import json
 
 from killerbee import *
 
@@ -93,3 +94,7 @@ kb.close()
 cap.close()
 
 print(("{0} packets transmitted".format(packetcount)))
+with open("/tmp/zbreplay_result.json", "w") as results:
+    json.dump({
+        "packetcount" : packetcount
+    }, results)
